@@ -12,6 +12,7 @@ public class UserDto implements Serializable {
     private String password;
     private String encryptedPassword;
     private String emailVerificationToken;
+    private Boolean emailVerificationStatus = false;
 
     public long getId() {
         return this.id;
@@ -88,7 +89,4 @@ public class UserDto implements Serializable {
     public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
         this.emailVerificationStatus = emailVerificationStatus;
     }
-
-    private Boolean emailVerificationStatus;
-
 }
