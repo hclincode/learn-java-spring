@@ -1,12 +1,12 @@
 build
 HELP.md
-build.gradle
 gradlew
 gradlew.bat
-settings.gradle
 gradle
 .gradle
 .classpath
 .project
 .settings
 bin
+.DS_Store
+.vscode
