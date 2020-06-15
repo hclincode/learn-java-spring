@@ -6,3 +6,7 @@ gradlew.bat
 settings.gradle
 gradle
 .gradle
+.classpath
+.project
+.settings
+bin
