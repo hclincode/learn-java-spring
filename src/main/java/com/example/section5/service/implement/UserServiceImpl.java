@@ -3,6 +3,7 @@ package com.example.section5.service.implement;
 import com.example.section5.io.entity.UserEntity;
 import com.example.section5.repository.UserRepository;
 import com.example.section5.service.UserService;
+import com.example.section5.shared.Utils;
 import com.example.section5.shared.dto.UserDto;
 
 import org.springframework.beans.BeanUtils;
@@ -14,6 +15,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    Utils utils;
 
     @Override
     public UserDto createUser(UserDto user) {
@@ -28,8 +32,7 @@ public class UserServiceImpl implements UserService {
 
         // TODO
         userEntity.setEncryptedPassword(userEntity.getPassword() + "encrypt");
-        // TODO
-        userEntity.setUserId(userEntity.getId() + "publicId");
+        userEntity.setUserId(utils.generateUserId(30));
 
         UserEntity storedUserDetials = userRepo.save(userEntity);
         UserDto returnValue = new UserDto();
