@@ -8,6 +8,9 @@ import com.example.section5.shared.dto.UserDto;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     Utils utils;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public UserDto createUser(UserDto user) {
@@ -30,8 +36,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = new UserEntity();
         BeanUtils.copyProperties(user, userEntity);
 
-        // TODO
-        userEntity.setEncryptedPassword(userEntity.getPassword() + "encrypt");
+        userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
         userEntity.setUserId(utils.generateUserId(30));
 
         UserEntity storedUserDetials = userRepo.save(userEntity);
@@ -39,5 +44,11 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(storedUserDetials, returnValue);
 
         return returnValue;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+        return null;
     }
 }
